@@ -4,20 +4,22 @@ import { useState } from "react";
 export function App() {
   const [time , setTime] = useState(0)
 
+  const timer = String(time).padStart(2,"0")
+
   function add25Minutes(){
-    setTime(time + 25)
+    setTime(25)
   }
 
   function add35Minutes(){
-    setTime(time + 35)
+    setTime(35)
   }
 
   function add45Minutes(){
-    setTime(time + 45)
+    setTime(45)
   }
 
   function add50Minutes(){
-    setTime(time + 55)
+    setTime(50)
   }
 
   return(
@@ -43,8 +45,8 @@ export function App() {
             <h1 className="font-bold text-base">Tempo de foco.</h1>
             <div className=" flex flex-col items-center ">
               <div className="flex gap-3  font-  font-mono font-bold text-9xl my-14 ">
-                <span className="bg-zinc-700 px-2 py-1 rounded-md border-none ">0</span>
-                <span className="bg-zinc-700 px-2 py-1 rounded-md border-none ">0</span>
+                <span className="bg-zinc-700 px-2 py-1 rounded-md border-none ">{timer[0]}</span>
+                <span className="bg-zinc-700 px-2 py-1 rounded-md border-none ">{timer[1]}</span>
                 <strong>:</strong>
                 <span className="bg-zinc-700 px-2 py-1 rounded-md border-none ">0</span>
                 <span className="bg-zinc-700 px-2 py-1 rounded-md border-none">0</span>
