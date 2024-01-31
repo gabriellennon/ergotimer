@@ -1,6 +1,9 @@
 import { CloudRain, Disc, Gear, Person, Play, SkipForward, Timer, Tree, User, HandPalm } from "phosphor-react";
 import { useEffect, useState } from "react";
 import { ButtonMinutes } from "./components/ButtonMinutes";
+import { SoundEffects } from "./components/SoundEffects";
+import { CountdownDisplay } from "./components/CountdownDisplay";
+import { NavMenu } from "./components/NavMenu";
 
 export function App() {
   const [minutesDefaultChoose , setMinutesDefaultChoose] = useState(25);
@@ -8,13 +11,14 @@ export function App() {
   const [seconds, setSeconds] = useState(0);
   const [isActive, setIsActive] = useState(false);
 
-  const timerMinutes = String(minutes).padStart(2,"0")
-  const timerSeconds = String(seconds).padStart(2,"0")
+  // const timerMinutes = String(minutes).padStart(2,"0")
+  // const timerSeconds = String(seconds).padStart(2,"0")
 
   const handleSelectMinutesToCount = (minutes: number) => {
     setMinutesDefaultChoose(minutes);
     setMinutes(minutes);
   }
+
 
   useEffect(() => {
     let interval: NodeJS.Timeout;
@@ -62,23 +66,18 @@ export function App() {
             <ButtonMinutes title="50" onClick={() => handleSelectMinutesToCount(50)} isActive={minutes === 50} />
           </div>
         </div>
+        
         <div className="w-52 h-14 space-x-3 bg-zinc-900 px-6  py-3 font-bold  rounded-full">
-          <button className="text-zinc-100 active:text-green-500"><Timer size={30}/></button>
-          <button className="text-zinc-100 active:text-green-500"><Person size={30}/></button>
-          <button className="text-zinc-100 active:text-green-500"><Gear size={30}/></button>
-          <button className="text-zinc-100 active:text-green-500"><User size={30}/></button>
+          <NavMenu icon={<Timer size={30}/>} isActive={isActive}/>
+          <NavMenu icon={<Person size={30}/>}/>
+          <NavMenu icon={<Gear size={30}/>}/>
+          <NavMenu icon={<User size={30}/>}/>
         </div>
         </div>
           <div className="flex flex-col gap items-center text-center text-zinc-100 max-w-[50rem] mx-auto py-12 bg-zinc-900 rounded-xl" >
             <h1 className="font-bold text-base">Tempo de foco.</h1>
             <div className=" flex flex-col items-center ">
-              <div className="flex gap-3  font-  font-mono font-bold text-9xl my-14 ">
-                <span className="bg-zinc-700 px-2 py-1 rounded-md border-none ">{timerMinutes[0]}</span>
-                <span className="bg-zinc-700 px-2 py-1 rounded-md border-none ">{timerMinutes[1]}</span>
-                <strong>:</strong>
-                <span className="bg-zinc-700 px-2 py-1 rounded-md border-none ">{timerSeconds[0]}</span>
-                <span className="bg-zinc-700 px-2 py-1 rounded-md border-none">{timerSeconds[1]}</span>
-              </div>
+              <CountdownDisplay minutes={minutes} seconds={seconds}/>
               <div className="flex items-center gap-4 mb-12 justify-center  w-full">
                 <button 
                   className={`px-32 py-4 rounded-lg flex gap-3 ${isActive ? 'bg-[#AB222E]' : 'bg-[#00875F]'} ease-out duration-200 hover:opacity-75`}
@@ -108,9 +107,9 @@ export function App() {
           <div>
             <strong>Efeitos sonoros:</strong>
             <div className="flex items-center gap-3 mt-2 -mb-4">
-              <button className="border p-3 rounded-full text-zinc-100 active:text-green-500 active:border-green-500"><CloudRain size={26}/></button>
-              <button className="border p-3 rounded-full text-zinc-100 active:text-green-500 active:border-green-500"><Tree size={26} /></button>
-              <button className="border p-3 rounded-full text-zinc-100 active:text-green-500 active:border-green-500"><Disc size={26}/></button>
+              <SoundEffects icon={<CloudRain size={26}/>} isActive={minutes < 49 && minutes>44} />
+              <SoundEffects icon={<Tree size={26}/>}  isActive={minutes < 44 && minutes>34}/>
+              <SoundEffects icon={<Disc size={26}/>} isActive={minutes < 34} />
             </div>
         </div>
       </div>
